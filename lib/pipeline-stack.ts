@@ -13,8 +13,8 @@ class Application extends cdk.Stage {
     constructor (scope: cdk.Construct, id: string, props?: cdk.StageProps) {
         super(scope, id, props)
         
-        new ServerlessInfraStack(scope, 'ServerlessInfraStack');
-        new VmStack(scope, 'vm-stack')
+        new ServerlessInfraStack(this, 'ServerlessInfraStack');
+        new VmStack(this, 'vm-stack')
     }
 }
 
@@ -30,7 +30,7 @@ export class PipelineStack extends cdk.Stack {
         const cloudAssemblyArtifact = new codepipeline.Artifact()
         
         // :: (1) --- this triggers when code changes in the repo
-        const sourceAction = new actions.GithubSourceAction({
+        const sourceAction = new actions.GitHubSourceAction({
             actionName: 'new-code-change-trigger',
             output: sourceArtifact,
             owner: 'richardneililagan',
